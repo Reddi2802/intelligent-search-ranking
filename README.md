@@ -90,11 +90,12 @@ All stages evaluated on MS MARCO passage ranking using **NDCG@10**.
 
 ## Repository Layout
 
+```text
 intelligent-search-ranking/
 ├── .github/
 │   └── workflows/          # CI/CD — lint, test, deploy
 ├── docs/
-│   ├── architecture.png    # System architecture diagram
+│   ├── architecture.svg    # System architecture diagram
 │   ├── SystemDesign.md     # Architectural decisions and tradeoffs
 │   └── Evaluation.md       # Full benchmark results and analysis
 ├── data/
@@ -115,6 +116,7 @@ intelligent-search-ranking/
 ├── DataContracts.md        # API contracts between pipeline components
 ├── pyproject.toml          # Dependencies managed with uv
 └── README.md
+```
 
 ---
 
