@@ -1,0 +1,41 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environment
+.env
+*.env
+
+# Data (too large for git)
+data/raw/
+data/processed/
+*.parquet
+*.bin
+
+# Models (too large for git)
+models/
+*.pkl
+*.joblib
+
+# Notebooks
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# FAISS indexes
+*.index
