@@ -1,0 +1,103 @@
+<svg width="100%" viewBox="0 0 680 920" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Intelligent Search and Ranking System Architecture</title>
+  <desc>A flowchart showing the seven-stage pipeline from user query through query processing, BM25 and semantic retrieval, hybrid fusion, ML ranking, neural reranking, to final ranked results and analytics.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="680" height="920" fill="white"/>
+
+  <!-- User Query -->
+  <rect x="240" y="30" width="200" height="44" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#2C2C2A" x="340" y="57" text-anchor="middle">User query</text>
+
+  <!-- Arrow -->
+  <line x1="340" y1="74" x2="340" y2="102" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Query Processing -->
+  <rect x="190" y="104" width="300" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#26215C" x="340" y="126" text-anchor="middle">Query processing</text>
+  <text font-family="sans-serif" font-size="12" fill="#3C3489" x="340" y="146" text-anchor="middle">cleaning · spell correction · expansion</text>
+
+  <!-- Split arrows -->
+  <line x1="340" y1="160" x2="340" y2="185" stroke="#888780" stroke-width="1.5"/>
+  <line x1="175" y1="185" x2="505" y2="185" stroke="#888780" stroke-width="1.5"/>
+  <line x1="175" y1="185" x2="175" y2="208" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="505" y1="185" x2="505" y2="208" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- BM25 -->
+  <rect x="60" y="210" width="230" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#04342C" x="175" y="232" text-anchor="middle">BM25 retrieval</text>
+  <text font-family="sans-serif" font-size="12" fill="#085041" x="175" y="252" text-anchor="middle">sparse · keyword matching · fast</text>
+
+  <!-- Semantic -->
+  <rect x="390" y="210" width="230" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#04342C" x="505" y="232" text-anchor="middle">Semantic retrieval</text>
+  <text font-family="sans-serif" font-size="12" fill="#085041" x="505" y="252" text-anchor="middle">FAISS · embeddings · dense</text>
+
+  <!-- Merge arrows -->
+  <line x1="175" y1="266" x2="175" y2="310" stroke="#888780" stroke-width="1.5"/>
+  <line x1="505" y1="266" x2="505" y2="310" stroke="#888780" stroke-width="1.5"/>
+  <line x1="175" y1="310" x2="505" y2="310" stroke="#888780" stroke-width="1.5"/>
+  <line x1="340" y1="310" x2="340" y2="328" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Hybrid Fusion -->
+  <rect x="190" y="330" width="300" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#26215C" x="340" y="352" text-anchor="middle">Hybrid fusion</text>
+  <text font-family="sans-serif" font-size="12" fill="#3C3489" x="340" y="372" text-anchor="middle">reciprocal rank fusion · top ~100 candidates</text>
+
+  <!-- Arrow -->
+  <line x1="340" y1="386" x2="340" y2="414" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ML Ranking -->
+  <rect x="190" y="416" width="300" height="56" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#4A1B0C" x="340" y="438" text-anchor="middle">ML ranking</text>
+  <text font-family="sans-serif" font-size="12" fill="#712B13" x="340" y="458" text-anchor="middle">LightGBM · LambdaMART · feature engineering</text>
+
+  <!-- Arrow -->
+  <line x1="340" y1="472" x2="340" y2="500" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Neural Reranking -->
+  <rect x="190" y="502" width="300" height="56" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#4A1B0C" x="340" y="524" text-anchor="middle">Neural reranking</text>
+  <text font-family="sans-serif" font-size="12" fill="#712B13" x="340" y="544" text-anchor="middle">cross-encoder · top 20 candidates · precise</text>
+
+  <!-- Arrow -->
+  <line x1="340" y1="558" x2="340" y2="586" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- FastAPI -->
+  <rect x="190" y="588" width="300" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#042C53" x="340" y="610" text-anchor="middle">FastAPI backend</text>
+  <text font-family="sans-serif" font-size="12" fill="#0C447C" x="340" y="630" text-anchor="middle">/search · /rank · /analytics · /health</text>
+
+  <!-- Split to UI and Analytics -->
+  <line x1="340" y1="644" x2="340" y2="670" stroke="#888780" stroke-width="1.5"/>
+  <line x1="205" y1="670" x2="475" y2="670" stroke="#888780" stroke-width="1.5"/>
+  <line x1="205" y1="670" x2="205" y2="692" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="475" y1="670" x2="475" y2="692" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Streamlit -->
+  <rect x="70" y="694" width="270" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#042C53" x="205" y="716" text-anchor="middle">Streamlit frontend</text>
+  <text font-family="sans-serif" font-size="12" fill="#0C447C" x="205" y="736" text-anchor="middle">mode toggles · result explanations</text>
+
+  <!-- Analytics -->
+  <rect x="345" y="694" width="265" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#042C53" x="477" y="716" text-anchor="middle">Analytics dashboard</text>
+  <text font-family="sans-serif" font-size="12" fill="#0C447C" x="477" y="736" text-anchor="middle">latency · query trends · NDCG@10</text>
+
+  <!-- Merge to deployment -->
+  <line x1="205" y1="750" x2="205" y2="790" stroke="#888780" stroke-width="1.5"/>
+  <line x1="477" y1="750" x2="477" y2="790" stroke="#888780" stroke-width="1.5"/>
+  <line x1="205" y1="790" x2="477" y2="790" stroke="#888780" stroke-width="1.5"/>
+  <line x1="340" y1="790" x2="340" y2="808" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Deployment -->
+  <rect x="190" y="810" width="300" height="56" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  <text font-family="sans-serif" font-size="14" font-weight="500" fill="#2C2C2A" x="340" y="832" text-anchor="middle">AWS deployment</text>
+  <text font-family="sans-serif" font-size="12" fill="#5F5E5A" x="340" y="852" text-anchor="middle">EC2 · S3 · Docker · GitHub Actions CI/CD</text>
+
+</svg>
