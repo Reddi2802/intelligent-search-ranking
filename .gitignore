@@ -39,3 +39,6 @@ logs/
 
 # FAISS indexes
 *.index
+
+# Planning docs (local only)
+Intelligent Search & Ranking System.md
