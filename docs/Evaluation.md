@@ -12,7 +12,7 @@ All stages are evaluated on MS MARCO passage ranking using NDCG@10.
 | Stage 3 | Semantic only (FAISS) | 0.6879 |
 | Stage 4 | Hybrid (BM25 + Semantic, RRF) | 0.6146 |
 | Stage 5 | + ML Ranking (LightGBM LambdaMART) | 0.6884 |
-| Stage 6 | + Neural Reranking | *TBD* |
+| Stage 6 | + Neural Reranking (Cross-Encoder) | 0.7547 |
 
 ## Retrieval Stage Analysis
 
