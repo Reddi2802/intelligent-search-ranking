@@ -42,3 +42,5 @@ logs/
 
 # Planning docs (local only)
 Intelligent Search & Ranking System.md
+
+data/raw/training_data.json

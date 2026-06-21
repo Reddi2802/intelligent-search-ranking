@@ -21,7 +21,7 @@ QUERIES_FILE = RAW_DIR / "queries.json"
 QRELS_FILE = RAW_DIR / "qrels.json"
 
 
-def load_msmarco(num_passages: int = 10_000) -> tuple[list[dict], list[dict], dict]:
+def load_msmarco(num_passages: int = 50_000) -> tuple[list[dict], list[dict], dict]:
     """
     Load MS MARCO passages, queries, and relevance judgments.
 
@@ -93,7 +93,7 @@ def load_msmarco(num_passages: int = 10_000) -> tuple[list[dict], list[dict], di
 
 
 if __name__ == "__main__":
-    passages, queries, qrels = load_msmarco(num_passages=10_000)
+    passages, queries, qrels = load_msmarco(num_passages=50_000)
     print(f"\nPassages : {len(passages)}")
     print(f"Queries  : {len(queries)}")
     print(f"Qrels    : {len(qrels)}")
