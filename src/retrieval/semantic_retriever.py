@@ -18,15 +18,10 @@ from src.retrieval.data_loader import load_msmarco
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-INDEX_DIR = Path("data/indexes")
-INDEX_DIR.mkdir(parents=True, exist_ok=True)
-
-FAISS_INDEX_FILE = INDEX_DIR / "faiss.index"
-PASSAGE_MAP_FILE = INDEX_DIR / "passage_map.pkl"
-
-EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-EMBEDDING_DIM = 384
-BATCH_SIZE = 256
+from src.config import (
+    FAISS_INDEX_FILE, PASSAGE_MAP_FILE,
+    EMBEDDING_MODEL, EMBEDDING_DIM, BATCH_SIZE
+)
 
 
 def load_embedding_model() -> SentenceTransformer:

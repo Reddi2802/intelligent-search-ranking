@@ -13,12 +13,7 @@ from datasets import load_dataset
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-RAW_DIR = Path("data/raw")
-RAW_DIR.mkdir(parents=True, exist_ok=True)
-
-PASSAGES_FILE = RAW_DIR / "passages.json"
-QUERIES_FILE = RAW_DIR / "queries.json"
-QRELS_FILE = RAW_DIR / "qrels.json"
+from src.config import PASSAGES_FILE, QUERIES_FILE, QRELS_FILE
 
 
 def load_msmarco(num_passages: int = 50_000) -> tuple[list[dict], list[dict], dict]:

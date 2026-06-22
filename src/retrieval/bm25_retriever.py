@@ -16,9 +16,7 @@ from src.retrieval.data_loader import load_msmarco
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-INDEX_DIR = Path("data/indexes")
-INDEX_DIR.mkdir(parents=True, exist_ok=True)
-BM25_INDEX_FILE = INDEX_DIR / "bm25.pkl"
+from src.config import BM25_INDEX_FILE
 
 
 def tokenize(text: str) -> list[str]:
