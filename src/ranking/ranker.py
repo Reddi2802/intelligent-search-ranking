@@ -15,9 +15,7 @@ from src.ranking.feature_extractor import RankingFeatures, extract_features
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-MODEL_DIR = Path("data/models")
-MODEL_DIR.mkdir(parents=True, exist_ok=True)
-RANKER_FILE = MODEL_DIR / "lightgbm_ranker.pkl"
+from src.config import RANKER_FILE
 
 
 def train_ranker(

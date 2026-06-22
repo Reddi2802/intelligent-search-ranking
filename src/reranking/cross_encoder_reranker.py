@@ -20,8 +20,7 @@ from src.ranking.ranker import load_ranker, rerank
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-CROSS_ENCODER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
-TOP_K_RERANK = 20  # only rerank top 20 from ML ranking
+from src.config import CROSS_ENCODER_MODEL, TOP_K_RERANK  # only rerank top 20 from ML ranking
 
 
 def load_cross_encoder() -> CrossEncoder:
