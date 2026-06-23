@@ -16,6 +16,7 @@ data/raw/
 data/processed/
 *.parquet
 *.bin
+data/indexes/bm25s_index/
 
 # Models (too large for git)
 models/

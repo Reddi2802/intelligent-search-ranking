@@ -55,7 +55,7 @@ def rerank_with_cross_encoder(
 
     # cross-encoder expects list of [query, document] pairs
     pairs = [[query, doc["text"]] for doc in top_candidates]
-    scores = cross_encoder.predict(pairs, show_progress_bar=False)
+    scores = cross_encoder.predict(pairs, batch_size=20, show_progress_bar=False)
 
     # attach scores and sort
     for doc, score in zip(top_candidates, scores):
@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
     # Load everything
     passages, queries, qrels = load_msmarco(num_passages=50_000)
-    bm25_index = build_bm25_index(passages)
+    bm25_index, _ = build_bm25_index(passages)
     model = load_embedding_model()
     faiss_index, passage_map = build_faiss_index(passages, model)
     ranker = load_ranker()
