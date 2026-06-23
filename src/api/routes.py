@@ -8,6 +8,7 @@ import time
 import threading
 import logging
 from collections import deque
+from src.retrieval.hybrid_retriever import fuse_results
 
 from fastapi import APIRouter, HTTPException, Request
 
@@ -24,7 +25,7 @@ from src.api.models import (
 )
 from src.retrieval.bm25_retriever import retrieve_bm25
 from src.retrieval.semantic_retriever import retrieve_semantic
-from src.retrieval.hybrid_retriever import retrieve_hybrid
+from src.retrieval.hybrid_retriever import fuse_results, retrieve_hybrid
 from src.ranking.ranker import rerank
 from src.reranking.cross_encoder_reranker import rerank_with_cross_encoder
 
@@ -88,19 +89,17 @@ async def search(request: Request, body: SearchRequest):
                 )
 
         elif mode == SearchMode.FULL:
+            bm25_results = retrieve_bm25(
+                query, state.passages, state.bm25_index, top_k=100
+            )
+
             with _embed_lock:
-                bm25_results = retrieve_bm25(
-                    query, state.passages, state.bm25_index, top_k=100
-                )
                 semantic_results = retrieve_semantic(
                     query, state.passage_map, state.faiss_index,
                     state.embedding_model, top_k=100
                 )
-                hybrid_results = retrieve_hybrid(
-                    query, state.passages, state.bm25_index,
-                    state.faiss_index, state.passage_map,
-                    state.embedding_model, top_k=100
-                )
+
+            hybrid_results = fuse_results(bm25_results, semantic_results, top_k=100)
 
             ml_results = rerank(
                 query=query,

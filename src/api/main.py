@@ -33,7 +33,7 @@ async def lifespan(app: FastAPI):
     app.state.qrels = qrels
     logger.info(f"Loaded {len(passages)} passages")
 
-    app.state.bm25_index = build_bm25_index(passages)
+    app.state.bm25_index, _ = build_bm25_index(passages)
     logger.info("BM25 index loaded")
 
     app.state.embedding_model = load_embedding_model()

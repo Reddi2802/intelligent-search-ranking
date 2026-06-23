@@ -126,3 +126,19 @@ if __name__ == "__main__":
                 f"sem={r.get('semantic_score', 0):.4f}) "
                 f"{r['text'][:80]}..."
             )
+
+def fuse_results(
+    bm25_results: list[dict],
+    semantic_results: list[dict],
+    top_k: int = 100,
+) -> list[dict]:
+    """
+    RRF fusion of pre-computed BM25 and semantic results.
+    Use this when you already have both result sets to avoid recomputation.
+    """
+    merged = reciprocal_rank_fusion(
+        ranked_lists=[bm25_results, semantic_results],
+        score_keys=["bm25_score", "semantic_score"],
+        k=RRF_K,
+    )
+    return merged[:top_k]

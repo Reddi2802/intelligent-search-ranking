@@ -129,7 +129,7 @@ if __name__ == "__main__":
 
     # Load data and indexes
     passages, queries, qrels = load_msmarco(num_passages=50_000)
-    bm25_index = build_bm25_index(passages)
+    bm25_index, _ = build_bm25_index(passages)
     model = load_embedding_model()
     faiss_index, passage_map = build_faiss_index(passages, model)
 

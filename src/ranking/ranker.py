@@ -2,13 +2,15 @@
 LightGBM learning-to-rank model.
 Uses LambdaMART to optimize directly for NDCG.
 """
-
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 import logging
 import pickle
 from pathlib import Path
 
 import lightgbm as lgb
 import numpy as np
+from yaml import warnings
 
 from src.ranking.feature_extractor import RankingFeatures, extract_features
 
@@ -75,26 +77,28 @@ def train_ranker(
         f"{sum(y)} positive labels."
     )
 
-    ranker = lgb.LGBMRanker(
-        objective="lambdarank",
-        metric="ndcg",
-        eval_at=[10],
-        n_estimators=100,
-        num_leaves=15,
-        learning_rate=0.05,
-        min_child_samples=10,
-        reg_alpha=0.1,
-        reg_lambda=0.1,
-        subsample=0.8,
-        colsample_bytree=0.8,
-        verbose=-1,
-    )
+    train_set = lgb.Dataset(X, label=y, group=groups)
 
-    ranker.fit(
-        X, y,
-        group=groups,
-        eval_set=[(X, y)],
-        eval_group=[groups],
+    params = {
+        "objective": "lambdarank",
+        "metric": "ndcg",
+        "eval_at": [10],
+        "n_estimators": 100,
+        "num_leaves": 15,
+        "learning_rate": 0.05,
+        "min_child_samples": 10,
+        "reg_alpha": 0.1,
+        "reg_lambda": 0.1,
+        "subsample": 0.8,
+        "feature_fraction": 0.8,
+        "verbose": -1,
+    }
+
+    ranker = lgb.train(
+        params,
+        train_set,
+        num_boost_round=100,
+        valid_sets=[train_set],
     )
 
     with open(RANKER_FILE, "wb") as f:
@@ -121,6 +125,8 @@ def rerank(
     bm25_results: list[dict] = None,
     semantic_results: list[dict] = None,
 ) -> list[dict]:
+    import warnings
+    warnings.filterwarnings("ignore", category=UserWarning)
     """
     Rerank candidates using the trained LightGBM ranker.
 
@@ -154,7 +160,7 @@ def rerank(
         X.append(features.to_list())
 
     X = np.array(X, dtype=np.float32)
-    scores = ranker.predict(X)
+    scores = ranker.predict(X, num_iteration=ranker.best_iteration)
 
     ranked = sorted(
         zip(candidates, scores),
