@@ -4,11 +4,10 @@ All models are accessed from app.state — loaded once at startup.
 Thread safety via locks for non-thread-safe models.
 """
 
-import time
-import threading
 import logging
+import threading
+import time
 from collections import deque
-from src.retrieval.hybrid_retriever import fuse_results
 
 from fastapi import APIRouter, HTTPException, Request
 
@@ -17,17 +16,17 @@ from src.api.models import (
     HealthResponse,
     ModelStatus,
     RankRequest,
+    ScoreExplanation,
     SearchMode,
     SearchRequest,
     SearchResponse,
     SearchResult,
-    ScoreExplanation,
 )
-from src.retrieval.bm25_retriever import retrieve_bm25
-from src.retrieval.semantic_retriever import retrieve_semantic
-from src.retrieval.hybrid_retriever import fuse_results, retrieve_hybrid
 from src.ranking.ranker import rerank
 from src.reranking.cross_encoder_reranker import rerank_with_cross_encoder
+from src.retrieval.bm25_retriever import retrieve_bm25
+from src.retrieval.hybrid_retriever import fuse_results, retrieve_hybrid
+from src.retrieval.semantic_retriever import retrieve_semantic
 
 logger = logging.getLogger(__name__)
 

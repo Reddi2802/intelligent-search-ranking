@@ -11,16 +11,21 @@ from pathlib import Path
 import numpy as np
 from sentence_transformers import CrossEncoder
 
-from src.retrieval.bm25_retriever import build_bm25_index, retrieve_bm25
-from src.retrieval.data_loader import load_msmarco
-from src.retrieval.hybrid_retriever import retrieve_hybrid
-from src.retrieval.semantic_retriever import build_faiss_index, load_embedding_model, retrieve_semantic
 from src.ranking.ranker import load_ranker, rerank
+from src.retrieval.bm25_retriever import build_bm25_index
+from src.retrieval.data_loader import load_msmarco
+from src.retrieval.semantic_retriever import (
+    build_faiss_index,
+    load_embedding_model,
+)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-from src.config import CROSS_ENCODER_MODEL, TOP_K_RERANK  # only rerank top 20 from ML ranking
+from src.config import (  # only rerank top 20 from ML ranking
+    CROSS_ENCODER_MODEL,
+    TOP_K_RERANK,
+)
 
 
 def load_cross_encoder() -> CrossEncoder:

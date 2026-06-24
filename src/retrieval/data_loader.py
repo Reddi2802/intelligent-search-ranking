@@ -6,14 +6,13 @@ Handles subset selection and caching to avoid re-downloading.
 
 import json
 import logging
-from pathlib import Path
 
 from datasets import load_dataset
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-from src.config import PASSAGES_FILE, QUERIES_FILE, QRELS_FILE
+from src.config import PASSAGES_FILE, QRELS_FILE, QUERIES_FILE
 
 
 def load_msmarco(num_passages: int = 50_000) -> tuple[list[dict], list[dict], dict]:

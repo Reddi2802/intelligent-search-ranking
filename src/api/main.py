@@ -11,12 +11,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.api.routes import router
-from src.retrieval.data_loader import load_msmarco
-from src.retrieval.bm25_retriever import build_bm25_index
-from src.retrieval.semantic_retriever import build_faiss_index, load_embedding_model
 from src.ranking.ranker import load_ranker
 from src.reranking.cross_encoder_reranker import load_cross_encoder
-from src.config import TOP_K_RETRIEVAL
+from src.retrieval.bm25_retriever import build_bm25_index
+from src.retrieval.data_loader import load_msmarco
+from src.retrieval.semantic_retriever import build_faiss_index, load_embedding_model
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

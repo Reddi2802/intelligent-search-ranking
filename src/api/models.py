@@ -4,7 +4,7 @@ These define the contracts between the client and the API.
 """
 
 from enum import Enum
-from typing import Optional
+
 from pydantic import BaseModel, Field, field_validator
 
 

@@ -4,13 +4,9 @@ BM25 retriever using bm25s — vectorized NumPy implementation.
 """
 
 import logging
-import pickle
-from pathlib import Path
 
 import bm25s
-import numpy as np
 
-from src.retrieval.data_loader import load_msmarco
 from src.config import BM25_INDEX_FILE
 
 logging.basicConfig(level=logging.INFO)

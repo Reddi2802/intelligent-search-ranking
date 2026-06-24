@@ -7,7 +7,6 @@ Uses GPU if available (RTX 4050), falls back to CPU.
 
 import logging
 import pickle
-from pathlib import Path
 
 import faiss
 import numpy as np
@@ -19,8 +18,11 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 from src.config import (
-    FAISS_INDEX_FILE, PASSAGE_MAP_FILE,
-    EMBEDDING_MODEL, EMBEDDING_DIM, BATCH_SIZE
+    BATCH_SIZE,
+    EMBEDDING_DIM,
+    EMBEDDING_MODEL,
+    FAISS_INDEX_FILE,
+    PASSAGE_MAP_FILE,
 )
 
 

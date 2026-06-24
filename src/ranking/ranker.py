@@ -3,16 +3,16 @@ LightGBM learning-to-rank model.
 Uses LambdaMART to optimize directly for NDCG.
 """
 import warnings
+
 warnings.filterwarnings("ignore", category=UserWarning)
 import logging
 import pickle
-from pathlib import Path
 
 import lightgbm as lgb
 import numpy as np
 from yaml import warnings
 
-from src.ranking.feature_extractor import RankingFeatures, extract_features
+from src.ranking.feature_extractor import extract_features
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

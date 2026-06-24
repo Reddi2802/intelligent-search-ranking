@@ -14,7 +14,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from src.ranking.ranker import load_ranker, rerank, train_ranker
+from src.ranking.ranker import rerank, train_ranker
 from src.retrieval.bm25_retriever import build_bm25_index, retrieve_bm25
 from src.retrieval.data_loader import load_msmarco
 from src.retrieval.hybrid_retriever import retrieve_hybrid
