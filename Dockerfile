@@ -21,11 +21,9 @@ ENV TRANSFORMERS_CACHE=/app/hf_cache
 ARG HF_TOKEN
 ENV HF_TOKEN=${HF_TOKEN}
 
-# Download models (online)
+# Only download embedding model — cross-encoder optional at runtime
 RUN uv run python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
-RUN uv run python -c "from sentence_transformers import CrossEncoder; CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')"
 
-# Force offline mode at runtime — use only cached models
 ENV TRANSFORMERS_OFFLINE=1
 
 COPY src/ ./src/

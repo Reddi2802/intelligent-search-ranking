@@ -4,6 +4,10 @@ Import this everywhere instead of using Path() directly.
 """
 
 from pathlib import Path
+import os
+
+# Set to false in production if RAM is constrained (e.g. EC2 t2.micro)
+ENABLE_CROSS_ENCODER = os.getenv("ENABLE_CROSS_ENCODER", "true").lower() == "true"
 
 # Project root — works regardless of where Python is invoked from
 PROJECT_ROOT = Path(__file__).parent.parent

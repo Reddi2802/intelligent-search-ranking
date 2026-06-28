@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  api:
+    image: YOUR_ECR_URI/intelligent-search-ranking:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - /home/ubuntu/data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TRANSFORMERS_OFFLINE=1
+      - HF_HOME=/app/hf_cache
+      - ENABLE_CROSS_ENCODER=false
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 120s

@@ -27,6 +27,7 @@ from src.reranking.cross_encoder_reranker import rerank_with_cross_encoder
 from src.retrieval.bm25_retriever import retrieve_bm25
 from src.retrieval.hybrid_retriever import fuse_results, retrieve_hybrid
 from src.retrieval.semantic_retriever import retrieve_semantic
+from src.config import ENABLE_CROSS_ENCODER
 
 logger = logging.getLogger(__name__)
 
@@ -108,13 +109,16 @@ async def search(request: Request, body: SearchRequest):
                 semantic_results=semantic_results,
             )
 
-            with _ce_lock:
-                results = rerank_with_cross_encoder(
-                    query=query,
-                    candidates=ml_results,
-                    cross_encoder=state.cross_encoder,
-                    top_k=20,
-                )
+            if ENABLE_CROSS_ENCODER and state.cross_encoder is not None:
+                with _ce_lock:
+                    results = rerank_with_cross_encoder(
+                        query=query,
+                        candidates=ml_results,
+                        cross_encoder=state.cross_encoder,
+                        top_k=20,
+                    )
+            else:
+                results = ml_results
 
         latency_ms = (time.time() - start) * 1000
 
@@ -148,12 +152,15 @@ async def rank(request: Request, body: RankRequest):
             ranker=state.ranker,
         )
 
-        with _ce_lock:
-            results = rerank_with_cross_encoder(
-                query=body.query,
-                candidates=ml_results,
-                cross_encoder=state.cross_encoder,
-            )
+        if ENABLE_CROSS_ENCODER and state.cross_encoder is not None:
+            with _ce_lock:
+                results = rerank_with_cross_encoder(
+                    query=body.query,
+                    candidates=ml_results,
+                    cross_encoder=state.cross_encoder,
+                )
+        else:
+            results = ml_results
 
         latency_ms = (time.time() - start) * 1000
 

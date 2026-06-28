@@ -16,6 +16,7 @@ from src.reranking.cross_encoder_reranker import load_cross_encoder
 from src.retrieval.bm25_retriever import build_bm25_index
 from src.retrieval.data_loader import load_msmarco
 from src.retrieval.semantic_retriever import build_faiss_index, load_embedding_model
+from src.config import ENABLE_CROSS_ENCODER
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -44,8 +45,12 @@ async def lifespan(app: FastAPI):
     app.state.ranker = load_ranker()
     logger.info("LightGBM ranker loaded")
 
-    app.state.cross_encoder = load_cross_encoder()
-    logger.info("Cross-encoder loaded")
+    if ENABLE_CROSS_ENCODER:
+        app.state.cross_encoder = load_cross_encoder()
+        logger.info("Cross-encoder loaded.")
+    else:
+        app.state.cross_encoder = None
+        logger.info("Cross-encoder disabled (ENABLE_CROSS_ENCODER=false).")
 
     logger.info("All components loaded. API ready.")
     yield
